@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +10,12 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField] GameObject plane;
     float boundsX;
     float boundsZ;
-    int generationStep = 40; 
+    int generationStep = 40;
+
+   // public static event Action <GameObject> OnDied;
 
 
-
-
-    [HideInInspector]static public Queue<GameObject> asteroidQ;
+    [HideInInspector] static public Queue<GameObject> asteroidQ;
 
     void Start()
     {
@@ -32,14 +33,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            // SpawnAsteroid();
-        }
-    }
+     
 
 
     void SpawnAsteroid(Vector3 position)
@@ -102,12 +96,15 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void FillAsteroisdQ(int qSize)
     {
+       /// asteroidQ.Clear();
+
         asteroidQ = new Queue<GameObject>();
 
         for (int i =0; i<= qSize; i++)
         {
             var asteroid = Instantiate(pr_asteroid) as GameObject;
             asteroid.SetActive(false);
+            asteroid.transform.parent = this.transform;
             asteroid.GetComponent<Asteroid>().spawner = this; 
             asteroidQ.Enqueue(asteroid);
 

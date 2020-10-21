@@ -19,8 +19,8 @@ TagManager:
   - InnerBorder
   - Projectile
   - OuterBorder
-  - 
-  - 
+  - ProjectileEnemy
+  - Enemy
   - 
   - 
   - 

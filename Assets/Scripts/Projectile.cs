@@ -7,8 +7,8 @@ public class Projectile : MonoBehaviour
 {
     Rigidbody rigidbody;
     float projectuleVelocity =  170f;
-    [SerializeField]
-    ParticleSystem particles;
+    [SerializeField] LayerMask targetLayer;
+    [SerializeField] ParticleSystem particles;
 
     void Start()
     {
@@ -30,13 +30,14 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-       var col=  collision.gameObject.GetComponent<PlayerMovement>();
-        if (col == null)
+        var layer = collision.gameObject.layer;
+         
+        if (layer == targetLayer.value)
         {
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
         }
-       
+
     }
 
 }

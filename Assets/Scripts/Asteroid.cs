@@ -32,7 +32,13 @@ public class Asteroid : MonoBehaviour
 
          
         rb.AddForce(transform.right  * GetRandomVelocity());
-        rb.AddForce(transform.forward * GetRandomVelocity());
+        rb.centerOfMass = Vector3.zero;  // without this rb constrain on Y doesnt work
+
+
+
+        //  rb.inertiaTensorRotation = Quaternion.identity;
+
+        //  rb.AddForce(transform.forward * GetRandomVelocity());
 
 
 
@@ -45,18 +51,18 @@ public class Asteroid : MonoBehaviour
     void Update()
     {
 
-
-        rock.transform.Rotate(new Vector3(rotationX, rotationY, 0) * Time.deltaTime);
+        
+        rock.transform.Rotate(new Vector3(rotationX, rotationY, rotationZ) * Time.deltaTime);
        // CheckPosition();
         
         rb.velocity = new Vector3(Mathf.Clamp(rb.velocity.x, -dynamicMaxSpeed, dynamicMaxSpeed),0f, Mathf.Clamp(rb.velocity.z, -dynamicMaxSpeed, dynamicMaxSpeed));
 
     }
 
-    private void FixedUpdate()
-    {
-        // transform.position.y = new ;
-    }
+    //private void FixedUpdate()
+    //{
+    //    // transform.position.y = new ;
+    //}
 
     private float GetRandomVelocity()
     {
@@ -69,10 +75,7 @@ public class Asteroid : MonoBehaviour
 
     }
 
-    //public void SetGeneration(int generation)
-    //{
-    //    _generation = generation;
-    //}
+ 
 
     //private void OnTriggerEnter(Collision collision)
     //{

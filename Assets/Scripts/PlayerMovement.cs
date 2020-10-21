@@ -12,71 +12,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotationSpeed = 1f;
     private float turnSmooth;
     float speedMultiplier = 400f;
-    Vector3 direction;
-    PlayerInputContraller playerInputContraller;
-
-    public static PlayerMovement instance;
-    public Transform Player => this.transform;
-
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
+    public Vector3 direction { get; set; }
+    
 
         void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerInputContraller = GetComponent<PlayerInputContraller>();
+ 
     }
-
-    //void Update()
-    //{
-    //    horizontal = Input.GetAxisRaw("Horizontal");
-    //    vertical = Input.GetAxisRaw("Vertical");
-    //    moveVector = new Vector3(horizontal, 0f, vertical);
-    //    moveVector.Normalize();
-
-    //    float angle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg;
-    //    var quat = Quaternion.Euler(new Vector3(0, angle, 0f) * Time.deltaTime * rotationSpeed);
-
-
-    //    /// quat = Quaternion.LookRotation(moveVector);
-
-    //    // rb.velocity += vertical * this.transform.forward   * Time.deltaTime;
-    //   /// rb.MovePosition(vertical*100f * transform.forward * Time.deltaTime);
-    //     //var rotationAmount = rotationSpeed * Time.deltaTime * horizontal;
-    //     //rb.rotation = Quaternion.Euler(0, rb.rotation.eulerAngles.y + rotationAmount, 0);
-
-    //    //  rb.AddForce(moveVector , ForceMode.VelocityChange);
-    //    if (moveVector.magnitude > 0)
-    //    {
-    //      ///rb.velocity += moveVector;
-    //     rb.AddForce(transform.forward * speed, ForceMode.Impulse);
-    //        rb.MoveRotation(rb.rotation * quat  );
-    //     ///   rb.AddTorque(moveVector  * rotationSpeed, ForceMode.Impulse);
-
-    //    }
-    //}
-
-
-    void Update()
-    {
-
-        horizontal = playerInputContraller.Horizontal;
-        vertical = playerInputContraller.Vertical;
-
-        direction = new Vector3(horizontal, 0f, vertical).normalized;
-        //Debug.Log("direction " + direction);
-       // Debug.Log("player position " + this.transform.position);
-    }
+ 
 
     void FixedUpdate()
     {
