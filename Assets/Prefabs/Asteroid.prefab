@@ -54,12 +54,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 6566243646343889022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92e2b9eea2409b04ba4323298fa0d9b6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7342deeed2bbaf24b8561bb0f5d6d101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawner: {fileID: 0}
   rock: {fileID: 6566243646343889022}
   maxRotation: 45
-  dynamicMaxSpeed: 4
+  dynamicMaxSpeed: 3
+--- !u!114 &18251796470755739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566243646343889022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e7449dbb50b40c428e617f747ec7fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSize: 5
+  maxSize: 8
+  m_Explosion: {fileID: 5562518509050479909, guid: f37006192ea843146b3d882f4a96b028, type: 3}
 --- !u!1001 &6566243646343975590
 PrefabInstance:
   m_ObjectHideFlags: 0
