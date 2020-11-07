@@ -30,7 +30,7 @@ namespace Game.GamePlay
 
         private void Update()
         {
-            Destroy(this.gameObject, 1.5f);
+            Destroy(this.gameObject, 0.15f);
         }
 
 
@@ -40,10 +40,13 @@ namespace Game.GamePlay
 
             if (healt != null)
             {
-                
+                if (!this.gameObject.tag.Equals(collision.gameObject.tag))
+                {
+
                     healt.TakeDamage(damage);
-
-
+                    Destroy(this.gameObject);
+                }
+   
             }
             else return;
             //{

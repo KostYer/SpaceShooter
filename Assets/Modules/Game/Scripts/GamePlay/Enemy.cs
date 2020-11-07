@@ -14,57 +14,64 @@ namespace Game.GamePlay
     [RequireComponent(typeof(Collider))]
     public class Enemy : PoolableGameObject
     {
-        
+
         public event Action OnDestroy;
-        public event Action<Collision > OnHit;
+
         private Health health;
+        [SerializeField]
+        PoolableGameObject m_Explosion = default;
 
 
         private void Awake()
         {
-          health = GetComponent<Health>();
- 
+
+            //trailRenderer = GetComponentsInChildren<TrailRenderer>();
+            //enemyController = GetComponent<EnemyController>();
+
         }
-
-        void OnCollisionEnter(Collision collision)
-        {
-            //OnHit?.Invoke(collision );
-
-
-            //if (!collision.gameObject.tag.Equals(GameTags.Projectile))
-            //{
-            //    Explode();
-            //}
-
-            //OnDestroyAsteroid();
-        }
-
 
         public void Explode()
         {
-            Debug.Log("Enemy exploded"); 
+            Serivces.Get<IPoolingService>().Instantiate(m_Explosion.gameObject, transform.position, Quaternion.identity);
+            OnDestroyEnemy();
         }
 
 
 
         public void OnDestroyEnemy()
         {
-         //  CancelInvoke(nameof(Explode));
+         
+
+            //  CancelInvoke(nameof(Explode));
             OnDestroy?.Invoke();
             OnDestroy = null;
+
         }
 
 
         public override void Init(Action onRelease)
         {
-            GameServices.Get<EnemyService>().Register(this);
-         ///   Invoke(nameof(Explode), 30f);
+
+            GameServices.Get<GameScoreService>().Register(this);
+            ///   Invoke(nameof(Explode), 30f);
+            health = GetComponent<Health>();
+            health.OnHealthDepleted += Explode;
+            health.InitilazeHealth();
             OnDestroy += onRelease;
+
+
+
         }
 
         public override void Release()
         {
-            GameServices.Get<EnemyService>().Unregister(this);
+            GameServices.Get<GameScoreService>().Unregister(this);
+            health.OnHealthDepleted -= OnDestroyEnemy;
+
+
+
+
+
         }
     }
 }

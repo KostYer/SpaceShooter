@@ -12,5 +12,7 @@ namespace Modules.Game.UI
 
         event Action OnRestartRequest;
         event Action OnQuitRequest;
+
+        void OnGameOver(int score, int highScore);
     }
 }

@@ -13,7 +13,7 @@ namespace Game.GamePlay
 {
 
     
-    readonly List<Enemy> m_Enemies = new List<Enemy>();
+    //readonly List<Enemy> m_Enemies = new List<Enemy>();
    
 
     public EnemyService( )
@@ -26,14 +26,15 @@ namespace Game.GamePlay
 
     public void Register(Enemy enemy)
     {
-            m_Enemies.Add(enemy);
-            enemy.OnHit += OnEnemydHit;
-    }
+           /// m_Enemies.Add(enemy);
+          ///  enemy.OnHit += OnEnemydHit;
+            Debug.Log("Register EnemyService");
+        }
 
     public void Unregister(Enemy enemy)
     {
-            m_Enemies.Remove(enemy);
-            enemy.OnHit -= OnEnemydHit;
+            ///m_Enemies.Remove(enemy);
+          ////  enemy.OnHit -= OnEnemydHit;
     }
 
     void Restart()

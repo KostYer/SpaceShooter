@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace Game.GamePlay
 {
-    public class PlayerInputController : MonoBehaviour
+    public  class PlayerInputController : MonoBehaviour
     {
-        public float Horizontal { get; private set; }
-        public float Vertical { get; private set; }
-        public bool FireButton { get; private set; }
+        public float Horizontal { get;  set; }
+        public float Vertical { get;  set; }
+        public bool FireButton { get;  set; }
 
 
 
@@ -18,8 +18,8 @@ namespace Game.GamePlay
             Horizontal = Input.GetAxisRaw("Horizontal");
             Vertical = Input.GetAxisRaw("Vertical");
             FireButton = Input.GetKeyDown(KeyCode.Space);
-
-            if (FireButton) Debug.Log("FireButton");
+            ////Debug.Log("PlayerInputController.Horizontal " + Horizontal);
+            /////  if (FireButton) Debug.Log("FireButton");
         }
     }
 

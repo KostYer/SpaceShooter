@@ -7,5 +7,6 @@ namespace Game.Core
     {
         public abstract void Init(Action onRelease);
         public abstract void Release();
+        
     }
 }

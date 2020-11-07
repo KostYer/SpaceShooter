@@ -6,6 +6,7 @@ namespace Game.GamePlay
         public const string ProjectileEnemy = "ProjectileEnemy";
         public const string Player = "Player";
         public const string Enemy = "Enemy";
-        public const string SpawnPointEnemy = "SpawnPointEnemy";
+        public const string SpawnPoint = "SpawnPoint";
+        public const string Asteroid = "Asteroid";
     }
 }

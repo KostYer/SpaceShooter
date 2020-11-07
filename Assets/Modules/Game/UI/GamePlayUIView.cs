@@ -9,6 +9,12 @@ namespace Modules.Game.UI
         [SerializeField]
         Text m_ScoresTextField = default;
 
+        [SerializeField]
+        Text m_HighScoreTextField = default;
+
+        [SerializeField]
+        Text m_FinalTextField = default;
+
         //[SerializeField]
         //Text m_LivesTextField = default;
 
@@ -25,6 +31,7 @@ namespace Modules.Game.UI
 
         public event Action OnRestartRequest;
         public event Action OnQuitRequest;
+        private int score;
 
         void Awake()
         {
@@ -32,11 +39,15 @@ namespace Modules.Game.UI
             {
                 OnRestartRequest?.Invoke();
             });
+
+
+
         }
 
         public void SetScore(int score)
         {
             m_ScoresTextField.text = $"Score: {score}";
+            this.score = score;
         }
 
         //public void SetLivesCount(int total, int count)
@@ -55,5 +66,16 @@ namespace Modules.Game.UI
             m_GamePlayPanel.SetActive(false);
             m_GameOverPanel.SetActive(true);
         }
+
+        public void OnGameOver(int score, int highScore)
+        {
+            m_HighScoreTextField.text = $"High Score: {highScore}";
+            m_FinalTextField.text = $"Your Score: {score}";
+        }
+
+         
+
+        
+
     }
 }

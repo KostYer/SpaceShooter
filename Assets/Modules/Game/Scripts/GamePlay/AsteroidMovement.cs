@@ -8,7 +8,7 @@ namespace Game.GamePlay
     public class AsteroidMovement : MonoBehaviour
     {
         ///dd
-        [HideInInspector] public PREV_AsteroidSpawner spawner;
+        ///[HideInInspector] public PREV_AsteroidSpawner spawner;
         [SerializeField] GameObject rock;
         // public Gameplay gameplay;
         [SerializeField] float maxRotation = 45f;
@@ -17,8 +17,8 @@ namespace Game.GamePlay
         private float rotationZ;
         private Rigidbody rb;
 
-        private float maxSpeed;
-        private int _generation;
+        //private float maxSpeed;
+        //private int _generation;
         [SerializeField] float dynamicMaxSpeed = 3f;
 
 
@@ -52,7 +52,7 @@ namespace Game.GamePlay
         void Update()
         {
 
-
+            rb.centerOfMass = Vector3.zero;  // without this rb constrain on Y doesnt work
             rock.transform.Rotate(new Vector3(rotationX, rotationY, rotationZ) * Time.deltaTime);
             // CheckPosition();
 

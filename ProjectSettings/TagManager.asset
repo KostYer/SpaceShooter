@@ -8,6 +8,8 @@ TagManager:
   - Projectile
   - SpawnPoint
   - SpawnPointEnemy
+  - Undefined
+  - Asteroid
   layers:
   - Default
   - TransparentFX

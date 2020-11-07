@@ -21,7 +21,9 @@ namespace Game.Core
             var key = typeof(T).Name;
             if (!services.ContainsKey(key))
             {
+                Debug.Log("key " + key);
                 throw new InvalidOperationException();
+              
             }
 
             return (T)services[key];

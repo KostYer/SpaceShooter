@@ -17,7 +17,7 @@ namespace Game.GamePlay
     public class EnemyController : MonoBehaviour
     {  
         [Header("NavMeshSettings")]
-        [SerializeField] private NavMeshAgent navAgent;
+        public NavMeshAgent navAgent;
         [SerializeField] private float movementSpeed = 20f;
         [SerializeField] private float angularSpeed = 120f;
         [SerializeField] private float acceleration = 15;
@@ -35,7 +35,7 @@ namespace Game.GamePlay
         private Vector3 targert;
         private ProjectileLauncher projectileLauncher;
 
-        public event Action OnDestinationReached;
+        ///public event Action OnDestinationReached;
         // Vector3 clickPoint;
 
 
@@ -47,14 +47,14 @@ namespace Game.GamePlay
         {
             ///  initilazeNavMeshAgent();
             /// InvokeRepeating("ChaseTarget", 1,  1f);
-            target = PlayerController.instance.Player;
+            target = Player.instance.transform;
             state = IsCloseEnoughToShoot() ? States.Attack : States.Chase;
 
             projectileLauncher = GetComponent<ProjectileLauncher>();
 
             gameObject.tag = GameTags.Enemy;
 
-
+            Debug.Log("Start enemy");
         }
 
         void FixedUpdate()
@@ -63,48 +63,9 @@ namespace Game.GamePlay
 
 
 
-
-            //if (Input.GetMouseButtonDown(0))
-            //    {
-            //        /// Debug.Log("GetMouseButtonDown Enemy");
-            //        //create a ray cast and set it to the mouses cursor position in game
-            //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //        RaycastHit hit;
-
-            //        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            //        {
-            //        //Debug.Log("hit.point " + hit.point);
-            //        //Debug.DrawRay(hit.point, this.transform.position, Color.red);
-
-            //        targert = hit.point;
-            //        navAgent.destination = targert ;
-
-            //        //
-            //        //    Debug.Log("pathPending  "+ navAgent.pathPending);
-            //    }
-            //    }
-
-
-
-            //    currentDistance = Vector3.Distance(transform.position, targert );
-            //Debug.Log("currentDistance " + currentDistance);
-            //if (currentDistance <= distanceToStop)
-            //    {
-            //    Vector3 currentVelocity = navAgent.velocity;
-            //    navAgent.velocity = Vector3.Lerp(currentVelocity, Vector3.zero, 0.5f);
-            //    Fire();
-
-
-            //    }
-
-            ///  var rayDirection = targert - transform.position;
-            ///  Debug.DrawRay(transform.position, rayDirection.normalized * distanceToStop, Color.red);
-            /// navAgent.isStopped = navAgent.pathPending ? true : false;
-
-
             if (state == States.Chase)
             {
-                Debug.Log("Chase");
+               // Debug.Log("Chase");
                 ChaseTarget();
 
 
@@ -118,7 +79,7 @@ namespace Game.GamePlay
 
             else if (state == States.Attack)
             {
-                Debug.Log("Attack");
+              //  Debug.Log("Attack");
                 StopMovement();
                 Attack();
                 if (!IsCloseEnoughToShoot())
@@ -132,7 +93,7 @@ namespace Game.GamePlay
                 MoveBackwards();
             }
 
-            navAgent.enabled = true;
+            navAgent.enabled = true; 
         }
 
         private void MoveBackwards()
@@ -141,7 +102,7 @@ namespace Game.GamePlay
             navAgent.enabled = false;
             transform.position += -transform.forward * movementSpeed * Time.fixedDeltaTime;
             RotateTowardsTarget();
-            Debug.Log("move back");
+           //// Debug.Log("move back");
         }
 
         private void RotateTowardsTarget()
@@ -163,10 +124,11 @@ namespace Game.GamePlay
 
         private void ChaseTarget()
         {
+         ///   if  (navAgent.enabled = false) navAgent.enabled = true;
             if (navAgent.isStopped) navAgent.isStopped = false;
             if (Time.time > pathRecalculateTimeStamp)
             {
-                Vector3 destination = PlayerController.instance.Player.position;
+                Vector3 destination = Player.instance.transform.position;
                 //   navAgent.ResetPath();
                 //navAgent.SetDestination(destination);
                 navAgent.destination = destination;
@@ -194,7 +156,7 @@ namespace Game.GamePlay
 
         void SetTargetPosition()
         {
-            target = PlayerController.instance.Player;
+            target = Player.instance.transform;
 
         }
 
@@ -221,6 +183,19 @@ namespace Game.GamePlay
         //    Gizmos.DrawSphere(clickPoint, 1.5f) ;
         //}
 
+
+        public void DisableNavMeshAgent()
+        {
+           /// this.navAgent.enabled = false;
+            navAgent.ResetPath();
+        }
+
+        public void EnableNamMeshAgent()
+        {
+         ///   this.navAgent.enabled = true;
+          
+        }
     }
 }
- 
+
+

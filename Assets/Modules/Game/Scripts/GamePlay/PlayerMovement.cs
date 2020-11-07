@@ -9,8 +9,8 @@ namespace Game.GamePlay
     public class PlayerMovement : MonoBehaviour
     {
         Rigidbody rb;
-        float horizontal;
-        float vertical;
+        //float horizontal;
+        //float vertical;
         [SerializeField] private float speed = 1f;
         [SerializeField] private float rotationSpeed = 1f;
         private float turnSmooth;
@@ -30,8 +30,9 @@ namespace Game.GamePlay
             if (direction.magnitude > 0.1f)
             {
                 Move();
+                Debug.Log("direction.   "+ direction);
             }
-
+           
         }
 
 

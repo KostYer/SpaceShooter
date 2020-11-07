@@ -14,53 +14,54 @@ namespace Game.GamePlay
         readonly IGamePlayUIView m_GamePlayUI;
         readonly List<Asteroid> m_Asteroids = new List<Asteroid>();
 
-        public AsteroidsService(IGamePlayUIView gamePlayUIView)
+        public AsteroidsService( )
         {
-            m_GamePlayUI = gamePlayUIView;
-            m_GamePlayUI.OnRestartRequest += Restart;
+            //m_GamePlayUI = gamePlayUIView;
+            //m_GamePlayUI.OnRestartRequest += Restart;
 
-            Restart();
+            //Restart();
         }
 
-        public void Register(Asteroid asteroid)
-        {
-            m_Asteroids.Add(asteroid);
-            asteroid.OnHit += OnAsteroidHit;
-        }
+        //public void Register(Asteroid asteroid)
+        //{
+        // ////  m_Asteroids.Add(asteroid);
+        //   asteroid.OnHit += OnAsteroidHit;
+             
+        //}
 
-        public void Unregister(Asteroid asteroid)
-        {
-            m_Asteroids.Remove(asteroid);
-            asteroid.OnHit -= OnAsteroidHit;
-        }
+        //public void Unregister(Asteroid asteroid)
+        //{
+        //////  m_Asteroids.Remove(asteroid);
+        //  asteroid.OnHit -= OnAsteroidHit;
+        //}
 
         void Restart()
         {
-            using (ListPool<Asteroid>.Get(out var asteroidsListCopy))
-            {
-                asteroidsListCopy.AddRange(m_Asteroids);
-                foreach (var asteroid in asteroidsListCopy)
-                {
-                    asteroid.Explode();
-                }
-            }
+         //   using (ListPool<Asteroid>.Get(out var asteroidsListCopy))
+         //   {
+         //       asteroidsListCopy.AddRange(m_Asteroids);
+         //       foreach (var asteroid in asteroidsListCopy)
+         //       {
+         //           asteroid.Explode();
+         //       }
+         //   }
 
-            m_Score = 0;
-            m_Lives = k_TotalLives;
-            m_GamePlayUI.SetScore(m_Score);
-         ///   m_GamePlayUI.SetLivesCount(k_TotalLives, m_Lives);
+         //   m_Score = 0;
+         //   m_Lives = k_TotalLives;
+         //   m_GamePlayUI.SetScore(m_Score);
+         /////   m_GamePlayUI.SetLivesCount(k_TotalLives, m_Lives);
             
-            m_GamePlayUI.ShowGamePlayUI();
+         //   m_GamePlayUI.ShowGamePlayUI();
             
-            Time.timeScale = 1f;
+         //   Time.timeScale = 1f;
         }
 
         void OnAsteroidHit(Collision collision )
         {
             if (collision.gameObject.tag.Equals(GameTags.Projectile))
             {
-                //m_Score++;
-                //m_GamePlayUI.SetScore(m_Score);
+               //m_Score++;
+               // m_GamePlayUI.SetScore(m_Score);
             }
 
             if (collision.gameObject.tag.Equals(GameTags.Player))

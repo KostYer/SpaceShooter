@@ -7,7 +7,7 @@ namespace Game.UI
     internal class InGameMenuView : MonoBehaviour, IInGameMenuView
     {
         public event Action OnBackToMenuRequested;
-
+       
         [SerializeField]
         private Button m_BackButton = default;
 

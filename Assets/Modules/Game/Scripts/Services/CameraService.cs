@@ -10,5 +10,19 @@ namespace Game.GamePlay
         {
             MainCamera = mainCamera;
         }
+
+
+
+        public bool IsVisibleToCamera(Collider col)
+        {
+
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(MainCamera);
+          ///  if (GeometryUtility.TestPlanesAABB(planes, col.bounds)) { Debug.Log("IsVisibleToCamera"); return true; }
+
+            return false;
+
+        }
+
     }
 }
+ 

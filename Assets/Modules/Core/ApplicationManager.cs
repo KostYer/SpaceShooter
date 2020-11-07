@@ -25,6 +25,14 @@ namespace Game.Core
             SceneManager.UnloadSceneAsync(ScenesConfig.MeinMenuScene);
         }
 
+        public static void BackToMainMenu()
+        {
+            SceneManager.UnloadSceneAsync(ScenesConfig.FirstGameLevel);
+            SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu );
+            SceneManager.LoadSceneAsync(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
+        }
+
+
         private static void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
         {
             switch (scene.name)
@@ -51,14 +59,17 @@ namespace Game.Core
         }
 
         private static void OnInGameMenuLoaded(IInGameMenuView inGameMenuView)
-        { /*
+        {  
             inGameMenuView.OnBackToMenuRequested += () =>
             {
-               
-                SceneManager.UnloadSceneAsync(ScenesConfig.FirstGameLevel);
-                SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu);
+
+                /// SceneManager.UnloadSceneAsync(ScenesConfig.FirstGameLevel);
+                /// var controllerGameObject = scene.GetRootGameObjects()[0];
+                //  Scene.
+                ///SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu);
+                BackToMainMenu();
                 OpenMainMenu();
-        }; */
+        }; 
         }
 
         private static void OnMainMenuLoaded(IMainMenuView mainMenuView)

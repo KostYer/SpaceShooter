@@ -20,46 +20,38 @@ namespace Game.GamePlay
         [SerializeField]
         List<Asteroid> m_Asteroids = new List<Asteroid>();
 
-
-        [SerializeField] MeshFilter plane;
+        [SerializeField] List<Transform> spawnPoints;
+        public MeshFilter meshForGenerationgAsteroidsOnGameLevel;
+        public MeshFilter meshForGenerationgAsteroidsBelow;
         [SerializeField] int generationStep = 40;
+        private int maxAsteroidsCapacity = 200;
+
+        public static AsteroidSpawner instance;
 
 
-        void Awake()
+        private void Awake()
         {
-            //DestroyComponent<MeshRenderer>();
-            //DestroyComponent<MeshFilter>();
-      
-            //StartCoroutine(SpawnLoop());
-            //PlaceAsteroidsOnField();
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+
         }
 
+
+        [HideInInspector] public List<Asteroid> asteroids = new List<Asteroid>();
         private void Start()
         {
-            PopulatePlaneWithsteroids();
+            ////PopulatePlaneWithsteroids();
         }
 
-        void DestroyComponent<T>() where T : Component
-        {
-            var component = GetComponent<T>();
-            if (component != null)
-                Destroy(component);
-        }
 
-        //IEnumerator SpawnLoop()
-        //{
-        //    while (true)
-        //    {
-        //        yield return new WaitForSeconds(Random.Range(m_SpawnRateMin, m_SpawnRateMax));
-        //        Spawn();
-        //    }
-        //}
-
-        [ContextMenu("Test Spawn")]
-        void Spawn()
-        {
-            CreateAsteroid(Vector3.zero);
-        }
 
         //void OnDrawGizmos()
         //{
@@ -98,27 +90,44 @@ namespace Game.GamePlay
             asteroid.transform.SetParent(this.transform);
             float scaleModifier = (Random.Range(5f, 8f));
             asteroid.transform.localScale = new Vector3(scaleModifier, scaleModifier, scaleModifier);
+            asteroids.Add(asteroid);
 
 
+        }
+
+ 
+
+        public void DestroyAllAsteroids()
+        {
+            if (asteroids.Count > 0)
+            {
+                foreach (var asteroid in asteroids)
+                {
+                    asteroid.OnDestroyAsteroid();
+
+                }
+            }
+            asteroids.Clear();
+            Debug.Log("OnDestroyAsteroids");
 
         }
 
         public void PopulatePlaneWithsteroids()
         {
-             
-           Bounds bounds = plane.mesh.bounds;
+            //PopulatePlaneBelowLevel();
+            Bounds bounds = meshForGenerationgAsteroidsOnGameLevel.mesh.bounds;
             //     // size in pixels
-            float boundsX = plane.transform.localScale.x * bounds.size.x;
-            float boundsZ = plane.transform.localScale.z * bounds.size.z;
+            float boundsX = meshForGenerationgAsteroidsOnGameLevel.transform.localScale.x * bounds.size.x;
+            float boundsZ = meshForGenerationgAsteroidsOnGameLevel.transform.localScale.z * bounds.size.z;
 
             float offcet = 8f;
             float offsetX = Random.Range(-offcet, offcet);
             float offsetZ = Random.Range(-offcet, offcet);
 
 
-            for (int i = 0; i <= boundsX; i += generationStep)
+            for (int i = 0; i <= boundsX; i += generationStep )
             {
-                for (int j = 0; j <= boundsZ; j += generationStep)
+                for (int j = 0; j <= boundsZ; j += generationStep )
                 {
 
                     Vector3 position = new Vector3(-boundsX / 2 + i, 0f, -boundsZ / 2 + j) + new Vector3(offsetX, 0, offsetZ);
@@ -127,7 +136,61 @@ namespace Game.GamePlay
                     CreateAsteroid(position);
                 }
             }
+            
         }
 
+
+        //public void PopulatePlaneBelowLevel()
+        //{
+        //    var yPosition = meshForGenerationgAsteroidsBelow.gameObject.transform.position.y;
+        //    Bounds bounds = meshForGenerationgAsteroidsBelow.mesh.bounds;
+        //    //     // size in pixels
+        //    float boundsX = meshForGenerationgAsteroidsBelow.transform.localScale.x * bounds.size.x;
+        //    float boundsZ = meshForGenerationgAsteroidsBelow.transform.localScale.z * bounds.size.z;
+
+        //    float offcet = 8f;
+        //    float offsetX = Random.Range(-offcet, offcet);
+        //    float offsetZ = Random.Range(-offcet, offcet);
+
+
+        //    for (int i = 0; i <= boundsX; i += generationStep )
+        //    {
+        //        for (int j = 0; j <= boundsZ; j += generationStep )
+        //        {
+
+        //            Vector3 position = new Vector3(-boundsX / 2 + i, yPosition, -boundsZ / 2 + j) + new Vector3(offsetX, offsetX * 20f, offsetZ);
+
+
+        //            CreateAsteroid(position);
+        //        }
+        //    }
+        //}
+
+
+
+
+        public void SpawnAsteroidOnRandomPoint()
+        {
+          ///  if (asteroids.Count >= maxAsteroidsCapacity) return;
+            int index = UnityEngine.Random.Range(0, spawnPoints.Count);
+            ////  CreateEnemy(spawnPoints[index].position);
+
+            var spawnPointCollider = spawnPoints[index].gameObject.GetComponent<Collider>();
+
+            if (!GameServices.Get<CameraService>().IsVisibleToCamera(spawnPointCollider))
+            {
+                CreateAsteroid(spawnPoints[index].position );  
+                //return;
+
+            }
+            else if (GameServices.Get<CameraService>().IsVisibleToCamera(spawnPointCollider))
+            {
+                SpawnAsteroidOnRandomPoint();  
+                return;
+            }
+
+
+        }
+         
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,43 +10,44 @@ namespace Game.GamePlay
     public class Health : MonoBehaviour
     {
         [SerializeField] int maxHealth;
-        public int CurrentHealth { get; private set; }
+        public int currentHealth;/// { get; private set; }
+        [HideInInspector]
+       
 
-        public static event Action<Health> OnHealthAdded = delegate { };
+        public static  event Action<Health> OnHealthAdded = delegate { };  // to add healthBar 
         public static event Action<Health> OnHealtRemoved = delegate { };
-        public event Action OnHealthDepleted = delegate { };
+        
+        
+        public   event Action OnHealthDepleted = delegate { }; // to   destroy owner 
+        public event Action<float> OnHealthChanged = delegate { }; // to update healthBar UI
 
-        public event Action<float> OnHealthChanged = delegate { };
 
 
 
 
         private void Start()
         {
-            CurrentHealth = maxHealth;
-            OnHealthAdded(this);
-            Debug.Log("Health EnableD");
+
+            ///InitilazeHealth();
+          
         }
 
-        void Update()
+        public void InitilazeHealth()
         {
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-
-                TakeDamage(10);
-              
-            }
-
+            currentHealth = maxHealth;
+            OnHealthAdded?.Invoke(this);
+      
 
         }
+          
 
        public void TakeDamage(int amount)
         {
-            Debug.Log("TakeDamage");
-            CurrentHealth -= amount;
-            var healthPercentage = (float)CurrentHealth / (float)maxHealth;
+        
+            currentHealth -= amount;
+            var healthPercentage = (float)currentHealth / (float)maxHealth;
             OnHealthChanged(healthPercentage);
-            if (CurrentHealth <= 0)
+            if (currentHealth <= 0)
             {
                 Die();
             }
@@ -57,6 +59,9 @@ namespace Game.GamePlay
         {
             OnHealthDepleted?.Invoke();
 
+            OnHealtRemoved(this);
+         
+
         }
 
         private void OnDisable()
@@ -66,8 +71,6 @@ namespace Game.GamePlay
 
         }
 
-
-         
         
     }
 }

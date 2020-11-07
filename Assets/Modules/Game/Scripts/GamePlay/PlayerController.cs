@@ -10,23 +10,17 @@ namespace Game.GamePlay
 
         private PlayerMovement playerMovement;
         private ProjectileLauncher projectileLauncher;
-        private PlayerInputController playerInputController;
+        [SerializeField] PlayerInputController playerInputController;
 
 
-        public Transform Player => this.transform;
-        public static PlayerController instance;
+     //   public Transform Player => this.transform;
+
+
+        ///public static PlayerController instance;
 
         void Awake()
         {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-                return;
-            }
+            
 
             gameObject.tag = GameTags.Player;
 
@@ -36,7 +30,7 @@ namespace Game.GamePlay
         {
             playerMovement = GetComponent<PlayerMovement>();
             projectileLauncher = GetComponent<ProjectileLauncher>();
-            playerInputController = GetComponent<PlayerInputController>();
+          ///  playerInputController = GetComponent<PlayerInputController>();
 
 
         }
@@ -46,6 +40,7 @@ namespace Game.GamePlay
 
             if (playerInputController.FireButton)
             {
+                Debug.Log("FireButton");
                 projectileLauncher.Fire();
 
             }

@@ -9,9 +9,22 @@ namespace Game.Core
         readonly GameObject m_Root;
         readonly Dictionary<GameObject, ObjectPool<GameObject>> m_ActivePool = new Dictionary<GameObject, ObjectPool<GameObject>>();
 
+       public static List<PoolableGameObject> allPoolledObjects = new List<PoolableGameObject>();
+
+
+        //public void ResetPool()
+        //{
+        //    foreach (KeyValuePair<GameObject, ObjectPool<GameObject>> entry in m_ActivePool)
+        //    {
+        //        // do something with entry.Value or entry.Key
+        //    }
+
+        //}
+
+
         public GameObjectsPool(string name)
         {
-            m_Root = new GameObject(name);
+            m_Root = new GameObject(name );
             Object.DontDestroyOnLoad(m_Root);
         }
 
@@ -38,6 +51,11 @@ namespace Game.Core
             {
                 Release(origin, gameObject);
             });
+
+            if (!allPoolledObjects.Contains(poolableObject)) { allPoolledObjects.Add(poolableObject); }
+            
+
+
             return (T)poolableObject;
         }
 
@@ -69,6 +87,7 @@ namespace Game.Core
                 }, gameObject =>
                 {
                     gameObject.SetActive(false);
+                  ///  gameObject.transform.position = Vector3.zero;
                     gameObject.transform.SetParent(m_Root.transform);
                     gameObject.GetComponent<PoolableGameObject>().Release();
                 });
