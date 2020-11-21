@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Game.Core;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,31 +8,30 @@ using UnityEngine;
 namespace Game.GamePlay
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Projectile : MonoBehaviour
+    public class Projectile : PoolableGameObject
     {
         Rigidbody rigidbody;
-        float projectuleVelocity = 170f;
+        readonly float projectuleVelocity = 170f;
         public int Damage { set { damage = value; }}
                 
         int damage;
-        
-      ///  [SerializeField] LayerMask targetLayer;
+        public event Action OnDestroy;
+        ///  [SerializeField] LayerMask targetLayer;
         [SerializeField] ParticleSystem particles;
 
         void Start()
         {
-
-            rigidbody = GetComponent<Rigidbody>(); 
-            rigidbody.velocity = transform.forward * projectuleVelocity;
- 
-
-
+          
+            rigidbody = GetComponent<Rigidbody>();
+            
+           
+           /// Invoke(nameof(DestroyProjectile), 0.4f);
         }
 
 
         private void Update()
         {
-            Destroy(this.gameObject, 0.15f);
+            rigidbody.velocity = transform.forward * projectuleVelocity;
         }
 
 
@@ -44,7 +45,7 @@ namespace Game.GamePlay
                 {
 
                     healt.TakeDamage(damage);
-                    Destroy(this.gameObject);
+                    DestroyProjectile();
                 }
    
             }
@@ -56,5 +57,33 @@ namespace Game.GamePlay
 
         }
 
+        void DestroyProjectile()
+        {
+            Debug.Log("DestroyProjectile");
+            OnDestroy?.Invoke();
+            OnDestroy = null;
+             
+        }
+
+        public override void Init(Action onRelease)
+        {
+            OnDestroy += onRelease;
+            
+            
+            Invoke(nameof(DestroyProjectile), 0.3f);
+           
+           
+            Debug.Log("DestroyProjectile");
+        }
+
+        public override void Release()
+        {
+             CancelInvoke();
+             rigidbody.Sleep();
+             rigidbody.velocity = Vector3.zero;
+            /// this.rigidbody.WakeUp();
+             Debug.Log("ReleaseProjectile"); rigidbody.WakeUp();
+            // rigidbody.WakeUp();
+        }
     }
 }

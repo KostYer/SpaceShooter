@@ -13,14 +13,14 @@ namespace Game.GamePlay
         [SerializeField] PlayerInputController playerInputController;
 
 
-     //   public Transform Player => this.transform;
+        //   public Transform Player => this.transform;
 
 
         ///public static PlayerController instance;
 
         void Awake()
         {
-            
+
 
             gameObject.tag = GameTags.Player;
 
@@ -30,7 +30,7 @@ namespace Game.GamePlay
         {
             playerMovement = GetComponent<PlayerMovement>();
             projectileLauncher = GetComponent<ProjectileLauncher>();
-          ///  playerInputController = GetComponent<PlayerInputController>();
+            ///  playerInputController = GetComponent<PlayerInputController>();
 
 
         }
@@ -44,13 +44,20 @@ namespace Game.GamePlay
                 projectileLauncher.Fire();
 
             }
-
-            playerMovement.direction = new Vector3(playerInputController.Horizontal, 0f, playerInputController.Vertical).normalized;
-
+            playerMovement.Direction = new Vector3(playerInputController.Horizontal, 0f, playerInputController.Vertical).normalized;
         }
+        //void FixedUpdate()
+        //{
 
-
-
+          
+        //}
 
     }
+
+  
+
+
 }
+            
+
+ 

@@ -9,7 +9,7 @@ namespace Game.GamePlay
     {
         [SerializeField]
         GamePlayUIView m_GamePlayUIView = default;
-        [SerializeField] List<Transform> spawnPonts;
+        [SerializeField] List<Transform> spawnPointsEnemies;
         [SerializeField] List<Enemy> enemyPrefabs;
         [SerializeField] Camera mainCamera;
         [SerializeField] GameObject targetObject;
@@ -21,7 +21,7 @@ namespace Game.GamePlay
 
             // Should be done on landing  
         Serivces.Register<IPoolingService>(new GameObjectsPool("Pool"));
-        GameServices.Register(new EnemySpawnerService(spawnPonts, enemyPrefabs));
+        GameServices.Register(new EnemySpawnerService(spawnPointsEnemies, enemyPrefabs));
         GameServices.Register(new GameScoreService(m_GamePlayUIView));
         GameServices.Register(new CameraService(mainCamera));
       
@@ -39,21 +39,21 @@ namespace Game.GamePlay
         }
 
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.P)  ) SpawnEnemiesByOne();
-        }
+        //private void Update()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.P)  ) SpawnEnemiesByOne();
+        //}
 
         void StartLevel()
         {
             PlayerSpawner.instance.SpawnPlayer();
             GameServices.Get<EnemySpawnerService>().SpawnEnemiesOnField();
             AsteroidSpawner.instance.PopulatePlaneWithsteroids();
-             
 
-            InvokeRepeating(nameof(SpawnEnemiesByOne), 4f,6f);
-           InvokeRepeating(nameof(SpawnAsteroidsByOne), 1f, 1f);
- 
+
+            InvokeRepeating(nameof(SpawnEnemiesByOne), 4f, 6f);
+            InvokeRepeating(nameof(SpawnAsteroidsByOne), 1f, 1f);
+
         }
 
         [ContextMenu("SpawnEnemiesByOne")]
@@ -70,6 +70,57 @@ namespace Game.GamePlay
 
         }
 
+
+
+        [ContextMenu("GetNumberOfActiveEnemies")]
+        void GetNumberOfActiveEnemies()
+        {
+            int count = 0;
+           /// var asteroid =GameServices.Get<Enemy>();
+
+            var allPoolableObjects = GameObjectsPool.allPoolledObjects;
+            foreach( var obj in allPoolableObjects)  
+                    {
+                if (obj.gameObject.activeInHierarchy)
+                {
+                    var enemy = obj.GetComponent<Enemy>();
+                           if(enemy != null)
+                            {
+                        count++;
+                            }
+                }
+                      ////obj.GetComponent<Asteroid> != null
+         }
+            print("enenmy count" + count);
+
+        }
+
+
+
+
+
+        [ContextMenu("GetNumberOfActiveAsteroids")]
+        void GetNumberOfActiveAsteroids()
+        {
+            int count = 0;
+            /// var asteroid =GameServices.Get<Enemy>();
+
+            var allPoolableObjects = GameObjectsPool.allPoolledObjects;
+            foreach (var obj in allPoolableObjects)
+            {
+                if (obj.gameObject.activeInHierarchy)
+                {
+                    var enemy = obj.GetComponent<Asteroid>();
+                    if (enemy != null)
+                    {
+                        count++;
+                    }
+                }
+
+            }
+            print("asteroid count" + count);
+
+        }
 
         //[ContextMenu("SpawnEnemiesOnField")]
         //public void SpawnEnemiesManuallyTest()

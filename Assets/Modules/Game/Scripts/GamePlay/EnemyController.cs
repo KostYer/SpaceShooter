@@ -57,7 +57,7 @@ namespace Game.GamePlay
             Debug.Log("Start enemy");
         }
 
-        void FixedUpdate()
+        void Update()
         {
 
 

@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 namespace Game.GamePlay
 {
@@ -9,27 +10,36 @@ namespace Game.GamePlay
     {
         [SerializeField] PlayerInputController playerInputController;
         [SerializeField] FixedJoystick fixedJoystick;
-       
-
-       
-           
-
-          //  void Start()
-          //  {
-             
-          //////  playerInputController = GetComponent<PlayerInputController>();
-          //  }
+        [SerializeField] Button fireButton;
 
 
-            void Update()
+
+        void Start()
+        {
+
+            fireButton.onClick.AddListener(FireButtonHandler);
+        }
+
+        private void FireButtonHandler()
+        {
+            playerInputController.FireButton = true;
+          //  playerInputController.FireButton = false;
+        }
+
+        void Update()
             {
+        
+            playerInputController.FireButton = false;
+            //if (fixedJoystick.Direction.magnitude > 0.1)
 
-            if (fixedJoystick.Horizontal > 0.1 || fixedJoystick.Vertical >0.1)
-            {
+            //{
                 playerInputController.Horizontal = fixedJoystick.Horizontal;
                 playerInputController.Vertical = fixedJoystick.Vertical;
-            }
-           
+               // playerInputController.FireButton = 
+            //}
+                
+        
+            
 
             ////    Debug.Log("JoystickController.Horizontal " + fixedJoystick.Horizontal );
         }

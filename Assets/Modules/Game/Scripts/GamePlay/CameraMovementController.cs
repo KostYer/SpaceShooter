@@ -18,8 +18,9 @@ public class CameraMovementController : MonoBehaviour
 
     void Start()
     {
-        cam = GetComponent<Camera>();
-       
+            cam = GameServices.Get<CameraService>().MainCamera;
+
+
     }
 
    
@@ -34,7 +35,7 @@ public class CameraMovementController : MonoBehaviour
         Debug.DrawLine(player.position, worldPosition, Color.green);
 
 
-        Vector3 flatTargetPosition = player.position;
+        Vector3 flatTargetPosition = player.GetComponent<Rigidbody>().position;
         flatTargetPosition.y = 0;
 
         Vector3 finalPosition = flatTargetPosition + rotationVector;

@@ -24,7 +24,7 @@ namespace Game.GamePlay
         public MeshFilter meshForGenerationgAsteroidsOnGameLevel;
         public MeshFilter meshForGenerationgAsteroidsBelow;
         [SerializeField] int generationStep = 40;
-        private int maxAsteroidsCapacity = 200;
+        private readonly int maxAsteroidsCapacity = 70;
 
         public static AsteroidSpawner instance;
 
@@ -46,10 +46,10 @@ namespace Game.GamePlay
 
 
         [HideInInspector] public List<Asteroid> asteroids = new List<Asteroid>();
-        private void Start()
-        {
-            ////PopulatePlaneWithsteroids();
-        }
+        //private void Start()
+        //{
+        //    ////PopulatePlaneWithsteroids();
+        //}
 
 
 
@@ -82,6 +82,8 @@ namespace Game.GamePlay
 
         void CreateAsteroid(Vector3 pos)
         {
+            if (GetNumberOfActiveAsteroids() >= maxAsteroidsCapacity) return;
+
 
             var index = Random.Range(0, m_Asteroids.Count - 1);
             var asteroid = Serivces.Get<IPoolingService>().Instantiate<Asteroid>(m_Asteroids[index].gameObject);
@@ -95,7 +97,30 @@ namespace Game.GamePlay
 
         }
 
+
+         
+        private int  GetNumberOfActiveAsteroids()
+        {
+            int count = 0;
  
+
+            var allPoolableObjects = GameObjectsPool.allPoolledObjects;
+            foreach (var obj in allPoolableObjects)
+            {
+                if (obj.gameObject.activeInHierarchy)
+                {
+                    var enemy = obj.GetComponent<Asteroid>();
+                    if (enemy != null)
+                    {
+                        count++;
+                    }
+                }
+
+            }
+           
+            return count;
+
+        }
 
         public void DestroyAllAsteroids()
         {
@@ -185,8 +210,8 @@ namespace Game.GamePlay
             }
             else if (GameServices.Get<CameraService>().IsVisibleToCamera(spawnPointCollider))
             {
-                SpawnAsteroidOnRandomPoint();  
-                return;
+                //SpawnAsteroidOnRandomPoint();  
+                //return;
             }
 
 

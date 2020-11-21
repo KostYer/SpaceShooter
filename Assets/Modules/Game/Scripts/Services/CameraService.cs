@@ -17,7 +17,7 @@ namespace Game.GamePlay
         {
 
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(MainCamera);
-          ///  if (GeometryUtility.TestPlanesAABB(planes, col.bounds)) { Debug.Log("IsVisibleToCamera"); return true; }
+            if (GeometryUtility.TestPlanesAABB(planes, col.bounds)) { Debug.Log("IsVisibleToCamera"); return true; }
 
             return false;
 

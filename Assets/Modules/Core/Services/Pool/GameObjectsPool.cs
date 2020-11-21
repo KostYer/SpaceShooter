@@ -65,7 +65,7 @@ namespace Game.Core
             pool.Release(instance);
         }
 
-        ObjectPool<GameObject> GetPool(GameObject origin)
+         ObjectPool<GameObject> GetPool(GameObject origin)
         {
             if (m_ActivePool.ContainsKey(origin))
             {
@@ -87,7 +87,6 @@ namespace Game.Core
                 }, gameObject =>
                 {
                     gameObject.SetActive(false);
-                  ///  gameObject.transform.position = Vector3.zero;
                     gameObject.transform.SetParent(m_Root.transform);
                     gameObject.GetComponent<PoolableGameObject>().Release();
                 });

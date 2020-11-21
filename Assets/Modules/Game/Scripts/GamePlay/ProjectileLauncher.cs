@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,10 +33,11 @@ namespace Game.GamePlay
                 foreach (var point in shootPoints)
                 {
 
-                    GameObject projectile = GameObject.Instantiate(Pr_projectile, point.position, point.transform.rotation) as GameObject;
+                    //  GameObject projectile = GameObject.Instantiate(Pr_projectile, point.position, point.transform.rotation) as GameObject;
+                    var projectile= Serivces.Get<IPoolingService>().Instantiate(Pr_projectile.gameObject, point.position, point.transform.rotation);
                     projectile.GetComponent<Projectile>().Damage = damage;
                     projectile.tag = this.gameObject.tag;
-                    projectile.transform.SetParent(transform);
+                    ///projectile.transform.SetParent(transform);
 
                 }
                 shootRateTimeStamp = Time.time + shootRate;

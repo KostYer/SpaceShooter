@@ -17,8 +17,8 @@ namespace Game.GamePlay
           ///  Debug.Log("SpawnPlayer");
             player.transform.position = spawnPoint.position;
 
-            var rb = player.GetComponent<Rigidbody>();
-            if (rb.IsSleeping()) { rb.WakeUp(); }
+            //var rb = player.GetComponent<Rigidbody>();
+           /// if (rb.IsSleeping()) { rb.WakeUp(); }
             player.GetComponent<Health>().InitilazeHealth();
             player.SetActive(true);
 

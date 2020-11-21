@@ -11,13 +11,14 @@ namespace Game.GamePlay
     {
 
 
-        List<Transform> spawnPoints = new List<Transform>();
+        readonly List<Transform> spawnPoints = new List<Transform>();
         ///string spawnPointsEnemytag = GameTags.SpawnPointEnemy;
         [SerializeField]
         List<Enemy> m_EnemyPrefabs = new List<Enemy>();
 
-        List<Enemy> enemies = new List<Enemy>();
-         int startingEnemyNumber = 4;
+        readonly List<Enemy> enemies = new List<Enemy>();
+        int startingEnemyNumber = 4;
+        readonly int maxEnemiesOnField = 5;
 
         ///public static event Action OnRespawnEnemies = delegate { };
         //// public static event Action OnDisableEnemies = delegate { };
@@ -57,6 +58,7 @@ namespace Game.GamePlay
 
         private void CreateEnemy(Vector3 pos)
         {
+            if (GetNumberOfActiveEnemies() >= maxEnemiesOnField) { return; }
             var index = UnityEngine.Random.Range(0, m_EnemyPrefabs.Count - 1);
             var enemyShip = Serivces.Get<IPoolingService>().Instantiate<Enemy>(m_EnemyPrefabs[index].gameObject);
             enemyShip.GetComponent<EnemyController>().navAgent.nextPosition =  pos;
@@ -114,6 +116,29 @@ namespace Game.GamePlay
 
 
             //throw new InvalidOperationException();
+
+        }
+
+        private int  GetNumberOfActiveEnemies()
+        {
+            int count = 0;
+             
+
+            var allPoolableObjects = GameObjectsPool.allPoolledObjects;
+            foreach (var obj in allPoolableObjects)
+            {
+                if (obj.gameObject.activeInHierarchy)
+                {
+                    var enemy = obj.GetComponent<Enemy>();
+                    if (enemy != null)
+                    {
+                        count++;
+                    }
+                }
+                ////obj.GetComponent<Asteroid> != null
+            }
+         
+            return count;
 
         }
 
