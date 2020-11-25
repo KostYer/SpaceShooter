@@ -17,7 +17,7 @@ namespace Game.GamePlay
         int damage;
         public event Action OnDestroy;
         ///  [SerializeField] LayerMask targetLayer;
-        [SerializeField] ParticleSystem particles;
+        //[SerializeField] ParticleSystem particles;
 
         void Start()
         {
@@ -59,7 +59,7 @@ namespace Game.GamePlay
 
         void DestroyProjectile()
         {
-            Debug.Log("DestroyProjectile");
+            
             OnDestroy?.Invoke();
             OnDestroy = null;
              
@@ -73,16 +73,16 @@ namespace Game.GamePlay
             Invoke(nameof(DestroyProjectile), 0.3f);
            
            
-            Debug.Log("DestroyProjectile");
+        
         }
 
         public override void Release()
         {
              CancelInvoke();
-             rigidbody.Sleep();
+             //rigidbody.Sleep();
              rigidbody.velocity = Vector3.zero;
             /// this.rigidbody.WakeUp();
-             Debug.Log("ReleaseProjectile"); rigidbody.WakeUp();
+          ///  rigidbody.WakeUp();
             // rigidbody.WakeUp();
         }
     }

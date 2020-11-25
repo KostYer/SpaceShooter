@@ -29,12 +29,12 @@ namespace Game.GamePlay
         void Update()
             {
         
-            playerInputController.FireButton = false;
+            //playerInputController.FireButton = false;
             //if (fixedJoystick.Direction.magnitude > 0.1)
 
             //{
-                playerInputController.Horizontal = fixedJoystick.Horizontal;
-                playerInputController.Vertical = fixedJoystick.Vertical;
+                //playerInputController.Horizontal = fixedJoystick.Horizontal;
+                //playerInputController.Vertical = fixedJoystick.Vertical;
                // playerInputController.FireButton = 
             //}
                 

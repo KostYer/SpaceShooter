@@ -77,10 +77,16 @@ namespace Game.GamePlay
             HandleGameScore();
             m_GamePlayUI.ShowGameOverScreen();
             m_GamePlayUI.OnGameOver(m_Score, highScore);
-         
+
             GameServices.Get<EnemySpawnerService>().DestroyAllEnemies();
             AsteroidSpawner.instance.DestroyAllAsteroids();
             HealthBarController.instance.ClearAllHealthBars();
+            //foreach (var item in GameObjectsPool.allPoolledObjects)
+            //{
+
+            //    if (item.isActiveAndEnabled) { item.Release(); }
+            //}
+
             Time.timeScale = 0f;
             m_Score = 0;
             //m_GamePlayUI.SetHighScore(m_Score);

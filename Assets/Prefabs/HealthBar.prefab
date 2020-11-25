@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_FillOrigin
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6332408548617153994, guid: 71fb69309fb0ea740a578ef2c2d69b21, type: 3}
+      propertyPath: m_Color.a
+      value: 0.22745098
+      objectReference: {fileID: 0}
     - target: {fileID: 6332408549487485993, guid: 71fb69309fb0ea740a578ef2c2d69b21, type: 3}
       propertyPath: m_Name
       value: HealthBar
@@ -102,6 +106,14 @@ PrefabInstance:
     - target: {fileID: 6332408549487485997, guid: 71fb69309fb0ea740a578ef2c2d69b21, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332408549487485997, guid: 71fb69309fb0ea740a578ef2c2d69b21, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332408549487485997, guid: 71fb69309fb0ea740a578ef2c2d69b21, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71fb69309fb0ea740a578ef2c2d69b21, type: 3}

@@ -20,6 +20,7 @@ namespace Game.GamePlay
         private Health health;
         [SerializeField]
         PoolableGameObject m_Explosion = default;
+      ///  AudioSource soundLaser;
 
 
         private void Awake()
@@ -27,21 +28,23 @@ namespace Game.GamePlay
 
             //trailRenderer = GetComponentsInChildren<TrailRenderer>();
             //enemyController = GetComponent<EnemyController>();
+            //explosionSound = GetComponent<AudioSource>();
 
         }
 
         public void Explode()
         {
             Serivces.Get<IPoolingService>().Instantiate(m_Explosion.gameObject, transform.position, Quaternion.identity);
+          //  GameServices.Get<AudioServise>().OnExplode();
             OnDestroyEnemy();
         }
 
+       
 
 
         public void OnDestroyEnemy()
         {
-         
-
+            
             //  CancelInvoke(nameof(Explode));
             OnDestroy?.Invoke();
             OnDestroy = null;
@@ -63,11 +66,19 @@ namespace Game.GamePlay
 
         }
 
+
+        //[ContextMenu("playSound")]
+        //void PlaySound1()
+        //{
+        //    explosionSound.Play();
+        //}
+
         public override void Release()
         {
             GameServices.Get<GameScoreService>().Unregister(this);
             health.OnHealthDepleted -= OnDestroyEnemy;
-
+          
+          
 
 
 

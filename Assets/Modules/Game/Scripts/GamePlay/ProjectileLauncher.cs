@@ -16,6 +16,7 @@ namespace Game.GamePlay
         [SerializeField] Transform[] shootPoints;
         [SerializeField] float shootRate = 0.5f;
         [SerializeField] int damage = 5;
+        [SerializeField] AudioSource laserAudio;
          
 
         float shootRateTimeStamp = 0f;
@@ -40,6 +41,7 @@ namespace Game.GamePlay
                     ///projectile.transform.SetParent(transform);
 
                 }
+                laserAudio.Play();
                 shootRateTimeStamp = Time.time + shootRate;
             }
 

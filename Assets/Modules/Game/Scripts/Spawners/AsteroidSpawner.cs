@@ -90,7 +90,7 @@ namespace Game.GamePlay
 
             asteroid.transform.position = pos;
             asteroid.transform.SetParent(this.transform);
-            float scaleModifier = (Random.Range(5f, 8f));
+            float scaleModifier = (Random.Range(5f, 12f));
             asteroid.transform.localScale = new Vector3(scaleModifier, scaleModifier, scaleModifier);
             asteroids.Add(asteroid);
 

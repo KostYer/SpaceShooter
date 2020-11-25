@@ -14,8 +14,9 @@ namespace Game.Core
 
         public static void OpenMainMenu()
         {
-            SceneManager.LoadScene(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
-           
+            //SceneManager.LoadScene(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
+            Time.timeScale = 0f;
         }
 
         public static void StartGame()
@@ -31,6 +32,13 @@ namespace Game.Core
             SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu );
             SceneManager.LoadSceneAsync(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
         }
+
+        //public static void BackToMainMenuFromGame()
+        //{
+        //    //SceneManager.UnloadSceneAsync(ScenesConfig.FirstGameLevel);
+        //    //SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu);
+        //  //  SceneManager.LoadSceneAsync(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
+        //}
 
 
         private static void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
@@ -67,8 +75,8 @@ namespace Game.Core
                 /// var controllerGameObject = scene.GetRootGameObjects()[0];
                 //  Scene.
                 ///SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu);
-                BackToMainMenu();
-                OpenMainMenu();
+              //  BackToMainMenuFromGame();
+             //   OpenMainMenu();
         }; 
         }
 

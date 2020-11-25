@@ -16,9 +16,9 @@ namespace Game.GamePlay
         void Update()
         {
 
-            //Horizontal = Input.GetAxisRaw("Horizontal");
-            //Vertical = Input.GetAxisRaw("Vertical");
-            //FireButton = Input.GetKeyDown(KeyCode.Space);
+            Horizontal = Input.GetAxisRaw("Horizontal");
+            Vertical = Input.GetAxisRaw("Vertical");
+            FireButton = Input.GetKeyDown(KeyCode.Space);
             ///Debug.Log("PlayerInputController.Horizontal " + Horizontal);
             ////  if (FireButton) Debug.Log("FireButton");
         }

@@ -24,9 +24,10 @@ namespace Game.GamePlay
         GameServices.Register(new EnemySpawnerService(spawnPointsEnemies, enemyPrefabs));
         GameServices.Register(new GameScoreService(m_GamePlayUIView));
         GameServices.Register(new CameraService(mainCamera));
-      
-        ///GameServices.Register(new CameraService(Camera.main));
-        ///  GameServices.Register(new AsteroidsService());
+        GameServices.Register(new AudioServise());
+
+            ///GameServices.Register(new CameraService(Camera.main));
+            ///  GameServices.Register(new AsteroidsService());
 
 
         }

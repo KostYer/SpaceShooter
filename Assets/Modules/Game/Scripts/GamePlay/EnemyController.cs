@@ -54,7 +54,7 @@ namespace Game.GamePlay
 
             gameObject.tag = GameTags.Enemy;
 
-            Debug.Log("Start enemy");
+
         }
 
         void Update()

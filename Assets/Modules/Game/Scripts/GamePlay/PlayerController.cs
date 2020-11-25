@@ -11,7 +11,7 @@ namespace Game.GamePlay
         private PlayerMovement playerMovement;
         private ProjectileLauncher projectileLauncher;
         [SerializeField] PlayerInputController playerInputController;
-
+        [SerializeField] AudioSource audioSource;
 
         //   public Transform Player => this.transform;
 
@@ -49,8 +49,9 @@ namespace Game.GamePlay
         //void FixedUpdate()
         //{
 
-          
+
         //}
+
 
     }
 
