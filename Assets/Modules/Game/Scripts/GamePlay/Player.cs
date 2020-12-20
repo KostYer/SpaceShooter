@@ -1,10 +1,8 @@
 ﻿using Game.Core;
-using Game.GamePlay;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.WSA.Input;
+
 
 
 namespace Game.GamePlay
@@ -15,23 +13,23 @@ namespace Game.GamePlay
         public Health health;
         public static event Action OnPlayerDied;
 
-        public static Player instance;
+        //public static Player  instance ;
 
         [SerializeField]
         PoolableGameObject m_Explosion = default;
 
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-                return;
-            }
-        }
+        //private void Awake()
+        //{
+        //    if (instance == null)
+        //    {
+        //        instance = this;
+        //    }
+        //    else
+        //    {
+        //        Destroy(gameObject);
+        //        return;
+        //    }
+        //}
 
         void Start()
         {

@@ -7,8 +7,8 @@ namespace Game.GamePlay
 {
     public class PlayerSpawner : MonoBehaviour
     {
-        [SerializeField] GameObject player;
-        [SerializeField] Transform spawnPoint;
+        [SerializeField] GameObject player = default;
+        [SerializeField] Transform spawnPoint = default;
 
 
         [ContextMenu("SpawnPlayer")]
@@ -34,21 +34,7 @@ namespace Game.GamePlay
             }
         }
 
-        public static PlayerSpawner instance;
-
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-                return;
-            }
-        }
+         
 
 
 

@@ -24,8 +24,11 @@ namespace Game.Core
 
         public GameObjectsPool(string name)
         {
-            m_Root = new GameObject(name );
-            Object.DontDestroyOnLoad(m_Root);
+            
+                m_Root = new GameObject(name);
+                Object.DontDestroyOnLoad(m_Root);
+            
+          
         }
 
         public GameObject Instantiate(GameObject origin)

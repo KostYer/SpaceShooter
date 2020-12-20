@@ -18,19 +18,14 @@ namespace Game.GamePlay
         public static event Action<Health> OnHealtRemoved = delegate { };
         
         
-        public   event Action OnHealthDepleted = delegate { }; // to   destroy owner 
+        public event Action OnHealthDepleted = delegate { }; // to   destroy owner 
         public event Action<float> OnHealthChanged = delegate { }; // to update healthBar UI
 
 
 
 
 
-        private void Start()
-        {
-
-            ///InitilazeHealth();
-          
-        }
+         
 
         public void InitilazeHealth()
         {
@@ -64,7 +59,7 @@ namespace Game.GamePlay
 
         }
 
-        private void OnDisable()
+        public void OnDisable()
         {
             OnHealtRemoved(this);
 

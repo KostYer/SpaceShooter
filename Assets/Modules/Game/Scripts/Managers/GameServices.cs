@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 namespace Game.GamePlay
 {
+    
     class GameServices
     {
         /// <summary>
         /// currently registered services.
         /// </summary>
-        static readonly Dictionary<string, object> services = new Dictionary<string, object>();
+        static public readonly Dictionary<string, object> services = new Dictionary<string, object>();
 
         /// <summary>
         /// Gets the service instance of the given type.
@@ -36,6 +37,7 @@ namespace Game.GamePlay
             string key = typeof(T).Name;
             if (services.ContainsKey(key))
             {
+                /// Unregister<T>();
                 return;
             }
 

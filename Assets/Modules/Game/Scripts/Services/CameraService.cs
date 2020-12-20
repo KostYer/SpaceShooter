@@ -8,7 +8,7 @@ namespace Game.GamePlay
 
         public CameraService(Camera mainCamera)
         {
-            MainCamera = mainCamera;
+            MainCamera = mainCamera;// mainCamera.GetComponent<Camera>();
         }
 
 

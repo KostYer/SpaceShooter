@@ -10,7 +10,7 @@ namespace Game.GamePlay
 
         private PlayerMovement playerMovement;
         private ProjectileLauncher projectileLauncher;
-        [SerializeField] PlayerInputController playerInputController;
+        private PlayerInputController playerInputController;
         [SerializeField] AudioSource audioSource;
 
         //   public Transform Player => this.transform;
@@ -30,6 +30,7 @@ namespace Game.GamePlay
         {
             playerMovement = GetComponent<PlayerMovement>();
             projectileLauncher = GetComponent<ProjectileLauncher>();
+            playerInputController = GetComponent<PlayerInputController>();
             ///  playerInputController = GetComponent<PlayerInputController>();
 
 
@@ -40,17 +41,13 @@ namespace Game.GamePlay
 
             if (playerInputController.FireButton)
             {
-                Debug.Log("FireButton");
-                projectileLauncher.Fire();
+               
+              projectileLauncher.Fire();
 
             }
             playerMovement.Direction = new Vector3(playerInputController.Horizontal, 0f, playerInputController.Vertical).normalized;
         }
-        //void FixedUpdate()
-        //{
-
-
-        //}
+       
 
 
     }

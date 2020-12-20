@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.GamePlay;
 using Game.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,20 +9,22 @@ namespace Game.Core
     public static class ApplicationManager
     {
         static ApplicationManager()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+        { 
+            SceneManager.sceneLoaded += OnSceneLoaded; 
         }
 
         public static void OpenMainMenu()
         {
             //SceneManager.LoadScene(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
+            
             SceneManager.LoadSceneAsync(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
             Time.timeScale = 0f;
         }
 
         public static void StartGame()
         {
-            SceneManager.LoadSceneAsync(ScenesConfig.FirstGameLevel, LoadSceneMode.Additive);
+            SceneManager.LoadScene (ScenesConfig.FirstGameLevel, LoadSceneMode.Additive);
+            //SceneManager.LoadSceneAsync(ScenesConfig.FirstGameLevel, LoadSceneMode.Additive);
             SceneManager.LoadSceneAsync(ScenesConfig.InGameMenu, LoadSceneMode.Additive);
             SceneManager.UnloadSceneAsync(ScenesConfig.MeinMenuScene);
         }
@@ -33,12 +36,21 @@ namespace Game.Core
             SceneManager.LoadSceneAsync(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
         }
 
-        //public static void BackToMainMenuFromGame()
-        //{
-        //    //SceneManager.UnloadSceneAsync(ScenesConfig.FirstGameLevel);
-        //    //SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu);
-        //  //  SceneManager.LoadSceneAsync(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
-        //}
+        public static void BackToMainMenuFromInGameMenu()
+        {
+          
+
+            Game.GamePlay.GameScoreManager.OnGameSessionOver();
+   
+
+
+
+            SceneManager.UnloadSceneAsync(ScenesConfig.FirstGameLevel );
+            SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu);
+            SceneManager.LoadSceneAsync(ScenesConfig.MeinMenuScene, LoadSceneMode.Additive);
+             // GamePlay.GameServices.services.Clear();
+             Game.GamePlay.GamePlayController.DeactivateServices();
+        }
 
 
         private static void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
@@ -59,6 +71,8 @@ namespace Game.Core
                     OnInGameMenuLoaded(inGameMenuView);
                     break;
                 case ScenesConfig.FirstGameLevel:
+                  
+                    
                     break;
 
                 default:
@@ -71,18 +85,20 @@ namespace Game.Core
             inGameMenuView.OnBackToMenuRequested += () =>
             {
 
-                /// SceneManager.UnloadSceneAsync(ScenesConfig.FirstGameLevel);
-                /// var controllerGameObject = scene.GetRootGameObjects()[0];
-                //  Scene.
-                ///SceneManager.UnloadSceneAsync(ScenesConfig.InGameMenu);
-              //  BackToMainMenuFromGame();
-             //   OpenMainMenu();
+              
+                BackToMainMenuFromInGameMenu();
         }; 
         }
 
         private static void OnMainMenuLoaded(IMainMenuView mainMenuView)
         {
             mainMenuView.OnStartButtonPressed += StartGame;
+            mainMenuView.OnQuitButtonPressed += QuitGame;
+        }
+
+        private static void QuitGame()
+        {
+            Application.Quit();
         }
     }
 }

@@ -10,6 +10,9 @@ TagManager:
   - SpawnPointEnemy
   - Undefined
   - Asteroid
+  - MenuCamera
+  - Joystick
+  - FireButton
   layers:
   - Default
   - TransparentFX

@@ -54,12 +54,14 @@ namespace Game.GamePlay
 
         public override void Init(Action onRelease)
         {
-
-            GameServices.Get<GameScoreService>().Register(this);
+             
+            GameServices.Get<GameScoreManager>().Register(this);
             ///   Invoke(nameof(Explode), 30f);
-            health = GetComponent<Health>();
-            health.OnHealthDepleted += Explode;
-            health.InitilazeHealth();
+            if ( GetComponent<Health>() != null) {
+                health = GetComponent<Health>();
+                health.OnHealthDepleted += Explode;
+                health.InitilazeHealth();
+               }
             OnDestroy += onRelease;
 
 
@@ -67,18 +69,14 @@ namespace Game.GamePlay
         }
 
 
-        //[ContextMenu("playSound")]
-        //void PlaySound1()
-        //{
-        //    explosionSound.Play();
-        //}
+        
 
         public override void Release()
         {
-            GameServices.Get<GameScoreService>().Unregister(this);
-            health.OnHealthDepleted -= OnDestroyEnemy;
-          
-          
+             GameServices.Get<GameScoreManager>().Unregister(this);
+            //health.OnHealthDepleted -= OnDestroyEnemy;
+            health.OnHealthDepleted -= Explode;
+
 
 
 

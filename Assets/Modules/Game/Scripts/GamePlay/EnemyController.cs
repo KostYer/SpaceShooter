@@ -27,10 +27,10 @@ namespace Game.GamePlay
 
 
         [SerializeField] private float pathRecalculateRate = 3f;
-        private Transform target;
+        private Vector3 target;
 
         private States state;
-        private float currentDistance;
+        //private float currentDistance;
         private float pathRecalculateTimeStamp = 0f;
         private Vector3 targert;
         private ProjectileLauncher projectileLauncher;
@@ -47,7 +47,7 @@ namespace Game.GamePlay
         {
             ///  initilazeNavMeshAgent();
             /// InvokeRepeating("ChaseTarget", 1,  1f);
-            target = Player.instance.transform;
+            target =  GameServices.Get<PlayerManager>().PlayerPosition; // new Transform();// Player.instance.transform;
             state = IsCloseEnoughToShoot() ? States.Attack : States.Chase;
 
             projectileLauncher = GetComponent<ProjectileLauncher>();
@@ -60,7 +60,7 @@ namespace Game.GamePlay
         void Update()
         {
 
-
+            target =   GameServices.Get<PlayerManager>().PlayerPosition;
 
 
             if (state == States.Chase)
@@ -88,7 +88,7 @@ namespace Game.GamePlay
                 }
             }
 
-            if (Vector3.Distance(this.transform.position, target.position) <= stopDistance * 0.7f)
+            if (Vector3.Distance(this.transform.position, target) <= stopDistance * 0.7f)
             {
                 MoveBackwards();
             }
@@ -107,7 +107,7 @@ namespace Game.GamePlay
 
         private void RotateTowardsTarget()
         {
-            Vector3 relativePos = target.position - transform.position;
+            Vector3 relativePos = target - transform.position;
             Quaternion desiredRotation = Quaternion.LookRotation(relativePos.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, 5f * Time.deltaTime);
 
@@ -124,11 +124,14 @@ namespace Game.GamePlay
 
         private void ChaseTarget()
         {
+            
+            
          ///   if  (navAgent.enabled = false) navAgent.enabled = true;
             if (navAgent.isStopped) navAgent.isStopped = false;
             if (Time.time > pathRecalculateTimeStamp)
             {
-                Vector3 destination = Player.instance.transform.position;
+                //Vector3 destination =  Player.instance.transform.position;
+                Vector3 destination = GameServices.Get<PlayerManager>().PlayerPosition;
                 //   navAgent.ResetPath();
                 //navAgent.SetDestination(destination);
                 navAgent.destination = destination;
@@ -156,13 +159,13 @@ namespace Game.GamePlay
 
         void SetTargetPosition()
         {
-            target = Player.instance.transform;
+            target = GameServices.Get<PlayerManager>().PlayerPosition;
 
         }
 
         bool IsCloseEnoughToShoot()
         {
-            return Vector3.Distance(this.transform.position, target.position) <= stopDistance;
+            return Vector3.Distance(this.transform.position, target ) <= stopDistance;
 
 
         }

@@ -50,10 +50,7 @@ namespace Game.GamePlay
    
             }
             else return;
-            //{
-            //Destroy(this.gameObject);
-            //Destroy(collision.gameObject);
-            //}
+
 
         }
 
@@ -79,11 +76,8 @@ namespace Game.GamePlay
         public override void Release()
         {
              CancelInvoke();
-             //rigidbody.Sleep();
              rigidbody.velocity = Vector3.zero;
-            /// this.rigidbody.WakeUp();
-          ///  rigidbody.WakeUp();
-            // rigidbody.WakeUp();
+
         }
     }
 }

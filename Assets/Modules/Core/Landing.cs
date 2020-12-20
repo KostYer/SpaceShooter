@@ -6,7 +6,7 @@ namespace Game.Core
     {
         void Start()
         {
-            Debug.Log("Start Landing");
+
 
             Serivces.Register(new GameObjectsPool("Pool"));
             ApplicationManager.OpenMainMenu();

@@ -11,20 +11,20 @@ namespace Game.GamePlay
         GamePlayUIView m_GamePlayUIView = default;
         [SerializeField] List<Transform> spawnPointsEnemies;
         [SerializeField] List<Enemy> enemyPrefabs;
-        [SerializeField] Camera mainCamera;
+        [SerializeField] GameObject playerPrefab;
         [SerializeField] GameObject targetObject;
-      
-
+        [SerializeField] HealthBar pr_healthBarPrefab;
+        [SerializeField] GameObject playerSpawnPoint;
+        Camera mainCamera;
         void Awake()
         {
+            //mainCamera = Camera.main.gameObject;
+            mainCamera = Camera.main;
+
+
+            ActivateServises();
            
 
-            // Should be done on landing  
-        Serivces.Register<IPoolingService>(new GameObjectsPool("Pool"));
-        GameServices.Register(new EnemySpawnerService(spawnPointsEnemies, enemyPrefabs));
-        GameServices.Register(new GameScoreService(m_GamePlayUIView));
-        GameServices.Register(new CameraService(mainCamera));
-        GameServices.Register(new AudioServise());
 
             ///GameServices.Register(new CameraService(Camera.main));
             ///  GameServices.Register(new AsteroidsService());
@@ -40,15 +40,14 @@ namespace Game.GamePlay
         }
 
 
-        //private void Update()
-        //{
-        //    if (Input.GetKeyDown(KeyCode.P)  ) SpawnEnemiesByOne();
-        //}
+      
 
         void StartLevel()
         {
-            PlayerSpawner.instance.SpawnPlayer();
-            GameServices.Get<EnemySpawnerService>().SpawnEnemiesOnField();
+
+             GameServices.Get<PlayerManager>().SpawnPlayer();
+            //PlayerSpawner.instance.SpawnPlayer();
+           GameServices.Get<EnemySpawnerManager>().SpawnEnemiesOnField();
             AsteroidSpawner.instance.PopulatePlaneWithsteroids();
 
 
@@ -60,7 +59,7 @@ namespace Game.GamePlay
         [ContextMenu("SpawnEnemiesByOne")]
         void SpawnEnemiesByOne()
         {
-            GameServices.Get<EnemySpawnerService>().SpawnEnemyOnRandomPoint();
+            GameServices.Get<EnemySpawnerManager>().SpawnEnemyOnRandomPoint();
 
         }
 
@@ -123,31 +122,40 @@ namespace Game.GamePlay
 
         }
 
-        //[ContextMenu("SpawnEnemiesOnField")]
-        //public void SpawnEnemiesManuallyTest()
-        //{
-        //    GameServices.Get<EnemySpawnerService>().SpawnEnemiesOnField( );
+        
 
-        //}
+        static public void DeactivateServices()
+        {
+            
+            GameServices.Unregister<AudioManager>();
+            GameServices.Unregister<EnemySpawnerManager>();
+            GameServices.Unregister<CameraService>();
+            
+            GameServices.Unregister<HealthBarManager>();
+            GameServices.Unregister<GameScoreManager>();
+            // GameServices.Unregister<PlayerManager>();
+          ///  Serivces.Get<IPoolingService>.gameObject();
+            //GameServices.Unregister<CameraService>(); /// (new CameraService(mainCamera));
+            // GameServices.Unregister<AsteroidManager>();
+
+        }
+
+         public void ActivateServises()
+        {
+            // Should be done on landing   
+            Serivces.Register<IPoolingService>(new GameObjectsPool("Pool"));
+            GameServices.Register(new CameraService(mainCamera));
+            GameServices.Register(new HealthBarManager(pr_healthBarPrefab));
 
 
-        //[ContextMenu("DestroyAllEnemies")]
-        //public void DestroyAllEnemiesTest()
-        //{
-        //    GameServices.Get<EnemySpawnerService>().DestroyAllEnemies();
-        //}
-
-        //[ContextMenu("IsVIsibleToCamera")]
-        //public void IsVIsibleToCamera( )
-        //{
-
-        //    if (GameServices.Get<CameraService>().IsVisibleToCamera(this.targetObject.GetComponent<Collider>())) { Debug.Log("visible to camera"); }
-        //    else  
-        //        { Debug.Log("visible NOT visible to camera"); }
-
-        //}
+            GameServices.Register(new PlayerManager(playerPrefab, playerSpawnPoint ));
+            GameServices.Register(new EnemySpawnerManager(spawnPointsEnemies, enemyPrefabs));
+            GameServices.Register(new GameScoreManager(m_GamePlayUIView));
+            GameServices.Register(new AudioManager());
+            ///   GameServices.Register<AsteroidManager>();
 
 
+        }
 
     }
 }

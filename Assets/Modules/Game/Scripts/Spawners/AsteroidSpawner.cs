@@ -14,8 +14,8 @@ namespace Game.GamePlay
         [SerializeField, Range(0.1f, 5f)]
         float m_SpawnRateMin = 1f;
 
-        [SerializeField, Range(5f, 10f)]
-        float m_SpawnRateMax = 1f;
+        //[SerializeField, Range(5f, 10f)]
+        //float m_SpawnRateMax = 1f;
 
         [SerializeField]
         List<Asteroid> m_Asteroids = new List<Asteroid>();
@@ -46,39 +46,7 @@ namespace Game.GamePlay
 
 
         [HideInInspector] public List<Asteroid> asteroids = new List<Asteroid>();
-        //private void Start()
-        //{
-        //    ////PopulatePlaneWithsteroids();
-        //}
-
-
-
-        //void OnDrawGizmos()
-        //{
-        //    Gizmos.color = Color.green;
-
-        //    var from = transform.position;
-        //    from.x -= m_SpawnRang;
-
-        //    var to = transform.position;
-        //    to.x += m_SpawnRang;
-
-        //    Gizmos.DrawLine(from, to);
-        //}
-
-        //void _CreateAsteroid()
-        //{
-        //    var index = Random.Range(0, m_Asteroids.Count - 1);
-        //    var asteroid = Serivces.Get<IPoolingService>().Instantiate<Asteroid>(m_Asteroids[index].gameObject);
-
-        //    var asteroidGameObject = asteroid.gameObject;
-        //   /// var spawnSpread = Random.Range(-m_SpawnRang, m_SpawnRang);
-        //    asteroidGameObject.transform.SetParent(transform);
-        //    ///    asteroidGameObject.transform.localPosition = new Vector3(spawnSpread, 0, 0);
-
-        //    var v = GameServices.Get<CameraService>().MainCamera.transform.position - transform.position;
-        //    asteroidGameObject.GetComponent<Rigidbody>().AddForce(v.normalized * 250f);
-        //}
+     
 
         void CreateAsteroid(Vector3 pos)
         {
@@ -133,7 +101,7 @@ namespace Game.GamePlay
                 }
             }
             asteroids.Clear();
-            Debug.Log("OnDestroyAsteroids");
+            //Debug.Log("OnDestroyAsteroids");
 
         }
 
